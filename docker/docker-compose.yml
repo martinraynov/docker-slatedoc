@@ -1,0 +1,66 @@
+version: '3.5'
+
+networks:
+  default:
+    external: true
+    name: lb-common
+  sonarnet:
+
+volumes:
+  sonarqube_conf:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_bundled-plugins:
+  postgresql:
+  postgresql_data:
+
+services:
+  # builder:
+  #   image: local/node
+  #   build:
+  #   deploy:
+  #     replicas: 1
+  #     labels:
+  #       traefik.frontend.rule: "Host:slate.local.io"
+  #       traefik.frontend.entryPoints: "http"
+  #       traefik.docker.network: "lb-common"
+  #       traefik.enable: "true"
+  #       traefik.backend: "slate"
+  #       traefik.port: 4567
+  #       traefik.backend.healthcheck.path: /
+  #       traefik.backend.healthcheck.interval: 1s
+  #       traefik.backend.healthcheck.port: 4567
+  #       traefik.backend.healthcheck.scheme: http
+  #   networks:
+  #     default:
+  #     #   aliases: 
+  #     #     - slate.local.io
+  #     sonarnet:
+  #   environment:
+  #   volumes:
+  #     - $(pwd)/build:/srv/slate/build:rw
+  #     - $(pwd)/source:/srv/slate/source:rw
+  slate:
+    image: slatedocs/slate
+    deploy:
+      replicas: 1
+      labels:
+        traefik.frontend.rule: "Host:slate.local.io"
+        traefik.frontend.entryPoints: "http"
+        traefik.docker.network: "lb-common"
+        traefik.enable: "true"
+        traefik.backend: "slate"
+        traefik.port: 4567
+        traefik.backend.healthcheck.path: /
+        traefik.backend.healthcheck.interval: 1s
+        traefik.backend.healthcheck.port: 4567
+        traefik.backend.healthcheck.scheme: http
+    networks:
+      default:
+      #   aliases: 
+      #     - slate.local.io
+      sonarnet:
+    environment:
+    volumes:
+      - $(pwd)/build:/srv/slate/build:rw
+      - $(pwd)/source:/srv/slate/source:rw
