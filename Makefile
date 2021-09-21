@@ -25,7 +25,7 @@ ifndef PROJECT_NAME
 	$(error PROJECT_NAME is not set !(Use "PROJECT_NAME=..." before the build command) )
 endif
 	@docker stack rm slate
-	@PROJECT_NAME=${PROJECT_NAME} docker stack deploy -c ./docker/docker-compose.yml slate
+	@_UID=$(shell id -u) GID=$(shell id -g) PROJECT_NAME=${PROJECT_NAME} docker stack deploy -c ./docker/docker-compose.yml slate
 
 .PHONY: stop
 stop: ## Stopping running slate instances

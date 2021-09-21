@@ -8,6 +8,7 @@ networks:
 services:
   slate:
     image: slatedocs/slate
+    user: ${_UID}:${GID}
     deploy:
       replicas: 1
       labels:
@@ -27,5 +28,5 @@ services:
       #     - slate.local.io
     # environment:
     volumes:
-      - ../projects/${PROJECT_NAME}:/srv/slate/build:rw
+      - ../projects/${PROJECT_NAME}:/srv/slate/build:r
       - ../source:/srv/slate/source:rw
