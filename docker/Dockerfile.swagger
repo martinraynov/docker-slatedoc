@@ -1,10 +1,15 @@
 FROM node:16.9.1-buster as slate_node
 
+ARG UID=1000
+ARG GID=1000
+
 WORKDIR /srv
 
-RUN git clone https://github.com/Mermade/widdershins.git builder && \
-    npm --prefix ./builder install -g widdershins
+RUN mkdir /srv/project && \
+    git clone https://github.com/Mermade/widdershins.git builder && \
+    npm --prefix ./builder install -g widdershins && \
+    npm --prefix ./builder i
 
 WORKDIR /srv/builder
 
-RUN node widdershins --search false --language_tabs 'ruby:Ruby' 'python:Python' --summary project/swagger.yml -o project/swagger.md
+COPY ./scripts/generate.sh .

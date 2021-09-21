@@ -1,0 +1,19 @@
+version: '3.5'
+
+networks:
+  default:
+    external: true
+    name: lb-common
+
+services:
+  builder:
+    image: localhost/builder-node:latest
+    user: ${_UID}:${GID}
+    networks:
+      - default
+    volumes:
+      - ../projects/${PROJECT_NAME}:/srv/project:rw
+    restart: "no"
+    command: >
+      bash -c "./generate.sh"
+  
