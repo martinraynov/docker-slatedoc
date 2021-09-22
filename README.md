@@ -1,7 +1,7 @@
 # slatedoc
 Repository that transforms a swagger and/or markdown folder into a slate documentation (integrates also openapi/swagger files)
 
-## Generate makrdown from swagger
+## Generate markdown from swagger
 
 Put your swagger files in a directory inside the projects folder (Example : projects/myslateproject)
 
